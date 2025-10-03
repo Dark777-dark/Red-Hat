@@ -607,6 +607,19 @@
         .delete-btn:hover {
             background: #c0392b;
         }
+
+        .file-info {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(139, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .file-size {
+            color: var(--gold);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -1040,8 +1053,9 @@
                     actionButton = `
                         <div class="upload-section">
                             <p style="color: var(--gold); margin-bottom: 15px; text-align: center;">📸 لإكمال هذه المهمة، يجب تصوير النتيجة وإرسالها</p>
-                            <input type="file" id="taskImage-${task.id}" class="file-input" accept="image/*">
+                            <input type="file" id="taskImage-${task.id}" class="file-input" accept="image/*" onchange="showFileInfo(${task.id})">
                             <label for="taskImage-${task.id}" class="upload-btn">📁 اختر صورة</label>
+                            <div id="fileInfo-${task.id}" class="file-info hidden"></div>
                             <button class="upload-btn" onclick="submitTask(${task.id})" style="background: var(--primary); margin-top: 10px;">🚀 إرسال للمراجعة</button>
                         </div>
                     `;
@@ -1071,6 +1085,26 @@
                 
                 container.appendChild(taskCard);
             });
+        }
+
+        // عرض معلومات الملف المختار
+        function showFileInfo(taskId) {
+            const fileInput = document.getElementById(`taskImage-${taskId}`);
+            const fileInfo = document.getElementById(`fileInfo-${taskId}`);
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileSize = (file.size / (1024 * 1024)).toFixed(2); // تحويل إلى MB
+                
+                fileInfo.innerHTML = `
+                    <div>📄 اسم الملف: ${file.name}</div>
+                    <div class="file-size">💾 حجم الملف: ${fileSize} MB</div>
+                    <div>✅ يمكن إرسال الملف حتى 20MB</div>
+                `;
+                fileInfo.classList.remove('hidden');
+            } else {
+                fileInfo.classList.add('hidden');
+            }
         }
         
         // عرض المكافآت
@@ -1106,7 +1140,7 @@
             });
         }
         
-        // إرسال مهمة للمراجعة - الإصلاح الكامل
+        // إرسال مهمة للمراجعة - بدون حدود حجم
         async function submitTask(taskId) {
             const fileInput = document.getElementById(`taskImage-${taskId}`);
             
@@ -1115,11 +1149,15 @@
                 return;
             }
 
-            // التحقق من حجم الصورة (5MB كحد أقصى)
             const file = fileInput.files[0];
-            if (file.size > 5 * 1024 * 1024) {
-                showAlert('error', 'حجم الصورة كبير جداً. الحد الأقصى 5MB');
-                return;
+            
+            // إزالة الحد الأقصى لحجم الملف
+            // يمكن إضافة تحذير فقط للملفات الكبيرة جداً
+            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            if (fileSizeMB > 50) { // تحذير فقط للملفات الأكبر من 50MB
+                if (!confirm(`هذه الصورة كبيرة جداً (${fileSizeMB} MB). قد تستغرق وقتاً طويلاً في الإرسال. هل تريد المتابعة؟`)) {
+                    return;
+                }
             }
 
             const task = tasks.find(t => t.id === taskId);
@@ -1143,7 +1181,8 @@
                                `📝 المهمة: ${task.title}\n` +
                                `📋 الوصف: ${task.description}\n` +
                                `⭐ النقاط: ${task.points}\n` +
-                               `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+                               `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n` +
+                               `💾 حجم الصورة: ${fileSizeMB} MB`;
                 
                 formData.append('caption', message);
 
@@ -1163,7 +1202,8 @@
                         userId: currentUser.email,
                         image: URL.createObjectURL(file), // حفظ كرابط مؤقت
                         submittedAt: new Date().toISOString(),
-                        status: 'pending'
+                        status: 'pending',
+                        fileSize: fileSizeMB
                     };
                     
                     pendingReviews.push(pendingReview);
@@ -1181,7 +1221,7 @@
                         }
                     }
                     
-                    showAlert('success', 'تم إرسال المهمة للمراجعة بنجاح!');
+                    showAlert('success', `تم إرسال المهمة للمراجعة بنجاح! (${fileSizeMB} MB)`);
                     updateStats();
                     renderTasks();
                 } else {
@@ -1195,6 +1235,7 @@
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 fileInput.value = ''; // مسح حقل الاختيار
+                document.getElementById(`fileInfo-${taskId}`).classList.add('hidden');
             }
         }
         
@@ -1255,7 +1296,8 @@
                         <strong>👤 المستخدم:</strong> ${user.name}<br>
                         <strong>📧 البريد:</strong> ${user.email}<br>
                         <strong>📞 الهاتف:</strong> ${user.phone}<br>
-                        <strong>⏰ وقت الإرسال:</strong> ${new Date(review.submittedAt).toLocaleString('ar-EG')}
+                        <strong>⏰ وقت الإرسال:</strong> ${new Date(review.submittedAt).toLocaleString('ar-EG')}<br>
+                        <strong>💾 حجم الصورة:</strong> ${review.fileSize} MB
                     </div>
                     <div style="margin: 20px 0;">
                         <strong>📸 الصورة المرفوعة:</strong>
