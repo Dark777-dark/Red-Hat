@@ -27,11 +27,11 @@
         }
         
         body {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark) 100%);
             color: var(--light);
             direction: rtl;
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark) 100%);
             min-height: 100vh;
+            line-height: 1.6;
         }
         
         .container {
@@ -40,186 +40,312 @@
             padding: 20px;
         }
         
-        header {
+        /* الهيدر */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 2px solid var(--primary);
-            margin-bottom: 30px;
-            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         .logo {
             display: flex;
             align-items: center;
+            gap: 15px;
         }
         
         .logo h1 {
-            color: var(--primary);
-            font-size: 32px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
-        }
-        
-        .hat {
-            color: var(--primary);
-            margin-left: 15px;
-            font-size: 28px;
-            animation: glow 2s infinite;
-        }
-        
-        @keyframes glow {
-            0% { text-shadow: 0 0 5px var(--primary); }
-            50% { text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary-light); }
-            100% { text-shadow: 0 0 5px var(--primary); }
-        }
-        
-        .btn {
-            background-color: var(--primary);
             color: var(--white);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hat-icon {
+            font-size: 2.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .points-badge {
+            background: var(--gold);
+            color: var(--black);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            font-size: 16px;
         }
         
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        .logout-btn:hover {
+            background: var(--white);
+            color: var(--primary);
         }
         
-        .btn-secondary {
-            background-color: var(--gray);
-            color: var(--light);
+        /* صفحة التسجيل */
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--black) 100%);
+            padding: 40px 20px;
         }
         
-        .btn-success {
-            background-color: var(--green);
-            color: var(--white);
-        }
-        
-        .btn-disabled {
-            background-color: #555;
-            color: #999;
-            cursor: not-allowed;
-        }
-        
-        /* أنماط تسجيل الدخول والتسجيل */
         .auth-container {
-            max-width: 500px;
-            margin: 50px auto;
-            background-color: var(--black);
-            padding: 40px;
-            border-radius: 15px;
+            background: var(--black);
+            padding: 50px;
+            border-radius: 20px;
             border: 2px solid var(--primary);
-            box-shadow: 0 0 30px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
         }
         
         .auth-title {
             color: var(--primary);
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .form-group {
             margin-bottom: 25px;
         }
         
-        .form-group label {
+        .form-label {
             display: block;
             margin-bottom: 10px;
-            color: var(--primary-light);
-            font-weight: bold;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
         
-        .form-control {
+        .form-input {
             width: 100%;
-            padding: 15px;
-            background-color: var(--dark);
+            padding: 15px 20px;
+            background: var(--dark);
             border: 2px solid rgba(139, 0, 0, 0.3);
-            border-radius: 8px;
+            border-radius: 12px;
             color: var(--light);
-            font-size: 16px;
+            font-size: 1rem;
             transition: all 0.3s;
         }
         
-        .form-control:focus {
+        .form-input:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .auth-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.4);
         }
         
         .auth-footer {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 30px;
+            color: var(--light);
         }
         
         .auth-link {
-            color: var(--primary);
+            color: var(--gold);
             cursor: pointer;
-            text-decoration: underline;
-            font-weight: bold;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
         }
         
-        /* أنماط التبويبات */
-        .tabs {
-            display: flex;
-            margin-bottom: 25px;
-            border-bottom: 2px solid rgba(139, 0, 0, 0.3);
-            background-color: var(--black);
-            border-radius: 10px 10px 0 0;
+        .auth-link:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
+        
+        /* اللوحة الرئيسية */
+        .dashboard {
+            padding: 40px 0;
+        }
+        
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(42, 26, 26, 0.3) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+        }
+        
+        .welcome-title {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .welcome-subtitle {
+            color: var(--light);
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--gray) 0%, var(--dark) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(139, 0, 0, 0.2);
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.3);
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-label {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* التبويبات */
+        .tabs-container {
+            background: var(--black);
+            border-radius: 15px;
+            border: 2px solid rgba(139, 0, 0, 0.2);
             overflow: hidden;
-            flex-wrap: wrap;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tabs-header {
+            display: flex;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            overflow-x: auto;
         }
         
         .tab {
-            padding: 15px 25px;
+            padding: 20px 30px;
             cursor: pointer;
-            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--white);
             transition: all 0.3s;
-            font-weight: bold;
-            flex: 1;
-            text-align: center;
-            min-width: 120px;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
         }
         
         .tab.active {
-            border-bottom: 3px solid var(--primary);
-            color: var(--primary);
-            background-color: var(--dark);
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 3px solid var(--gold);
         }
         
         .tab-content {
             display: none;
-            padding: 25px 0;
+            padding: 40px;
         }
         
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
         
-        /* أنماط المهام */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* المهام */
         .tasks-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
-            margin-top: 20px;
         }
         
         .task-card {
-            background: linear-gradient(145deg, var(--gray) 0%, var(--dark) 100%);
-            border-radius: 12px;
-            padding: 20px;
+            background: linear-gradient(135deg, var(--gray) 0%, var(--dark) 100%);
+            border-radius: 15px;
+            padding: 25px;
             border: 2px solid rgba(139, 0, 0, 0.2);
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -231,100 +357,98 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 100%);
         }
         
         .task-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
-            border-color: rgba(139, 0, 0, 0.4);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.3);
         }
         
         .task-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 15px;
         }
         
         .task-title {
-            font-weight: bold;
-            color: var(--primary);
-            font-size: 20px;
+            color: var(--gold);
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.3;
         }
         
         .task-points {
-            background-color: var(--primary);
+            background: var(--primary);
             color: var(--white);
-            padding: 8px 15px;
+            padding: 8px 16px;
             border-radius: 20px;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         
         .task-description {
-            margin-bottom: 20px;
             color: var(--light);
+            margin-bottom: 20px;
             line-height: 1.6;
+            opacity: 0.9;
         }
         
         .task-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
             color: var(--primary-light);
+            font-size: 0.9rem;
             margin-bottom: 20px;
-            padding: 10px 0;
+            padding: 15px 0;
             border-top: 1px solid rgba(139, 0, 0, 0.2);
             border-bottom: 1px solid rgba(139, 0, 0, 0.2);
         }
         
-        .task-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
         .upload-section {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: rgba(139, 0, 0, 0.1);
-            border-radius: 8px;
-            border: 1px dashed var(--primary);
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(139, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 2px dashed var(--primary);
         }
         
         .upload-btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
             text-align: center;
-            margin-top: 10px;
-            transition: all 0.3s;
             display: block;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
         
         .upload-btn:hover {
-            background-color: var(--primary-dark);
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
         
-        /* أنماط المكافآت */
+        /* المكافآت */
         .rewards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
-            margin-top: 20px;
         }
         
         .reward-card {
-            background: linear-gradient(145deg, var(--gray) 0%, var(--dark) 100%);
-            border-radius: 12px;
-            padding: 25px 20px;
+            background: linear-gradient(135deg, var(--gray) 0%, var(--dark) 100%);
+            border-radius: 15px;
+            padding: 30px 25px;
             border: 2px solid rgba(139, 0, 0, 0.2);
             transition: all 0.3s;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -336,233 +460,114 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 100%);
         }
         
         .reward-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
-            border-color: rgba(139, 0, 0, 0.4);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.3);
         }
         
         .reward-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-            color: var(--primary);
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--gold);
         }
         
         .reward-title {
-            font-weight: bold;
-            color: var(--primary);
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 15px;
-            font-size: 22px;
+        }
+        
+        .reward-description {
+            color: var(--light);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            opacity: 0.9;
         }
         
         .reward-cost {
-            color: var(--primary-light);
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 700;
             margin-bottom: 20px;
-            font-size: 18px;
-            font-weight: bold;
         }
         
-        /* أنماط التنبيهات */
+        /* التنبيهات */
         .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             margin-bottom: 25px;
-            display: none;
-            font-weight: bold;
+            font-weight: 600;
             border: 2px solid transparent;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         
         .alert-success {
-            background-color: rgba(46, 204, 113, 0.2);
+            background: rgba(46, 204, 113, 0.1);
             border-color: var(--green);
             color: var(--green);
         }
         
         .alert-error {
-            background-color: rgba(231, 76, 60, 0.2);
+            background: rgba(231, 76, 60, 0.1);
             border-color: var(--red);
             color: var(--red);
         }
         
         .alert-info {
-            background-color: rgba(139, 0, 0, 0.2);
+            background: rgba(139, 0, 0, 0.1);
             border-color: var(--primary);
             color: var(--primary-light);
         }
         
-        /* أنماط لوحة المعلومات */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin-bottom: 35px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(145deg, var(--gray) 0%, var(--dark) 100%);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            border: 2px solid rgba(139, 0, 0, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-        
-        .stat-value {
-            font-size: 36px;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
-        }
-        
-        .stat-label {
-            color: var(--primary-light);
-            font-weight: bold;
-        }
-        
-        /* أنماط القائمة العلوية */
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
-        }
-        
-        .points-display {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: var(--white);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .logout-btn {
-            background: none;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background-color: var(--primary);
-            color: var(--white);
-        }
-        
-        /* تصميم متجاوب */
+        /* التكيف مع الشاشات الصغيرة */
         @media (max-width: 768px) {
-            .tasks-grid, .rewards-grid {
-                grid-template-columns: 1fr;
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
             
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
+            .tabs-header {
                 flex-direction: column;
             }
             
             .tab {
                 text-align: center;
+                padding: 15px;
             }
             
-            header {
-                flex-direction: column;
-                gap: 15px;
+            .tasks-grid,
+            .rewards-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
             
-            .user-menu {
-                flex-wrap: wrap;
-                justify-content: center;
+            .auth-container {
+                padding: 30px 20px;
             }
             
-            .container {
-                padding: 10px;
+            .welcome-title {
+                font-size: 2rem;
             }
         }
         
-        /* أنماط إضافية */
-        .pending-approval {
-            background-color: rgba(212, 175, 55, 0.1);
-            border: 2px dashed var(--gold);
+        /* إخفاء العناصر */
+        .hidden {
+            display: none !important;
         }
         
-        .admin-panel {
-            background-color: rgba(139, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            border: 2px solid var(--primary);
-        }
-        
-        .admin-title {
-            color: var(--primary);
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 24px;
-        }
-        
-        .pending-tasks {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .task-image {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-            border: 1px solid var(--primary);
-            max-height: 200px;
-            object-fit: cover;
-        }
-        
-        .telegram-status {
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .telegram-success {
-            background-color: rgba(46, 204, 113, 0.2);
-            border: 1px solid var(--green);
-            color: var(--green);
-        }
-        
-        .telegram-error {
-            background-color: rgba(231, 76, 60, 0.2);
-            border: 1px solid var(--red);
-            color: var(--red);
+        .file-input {
+            display: none;
         }
         
         .loading {
@@ -580,271 +585,154 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        .file-input {
-            display: none;
-        }
-        
-        .user-info {
-            background: rgba(139, 0, 0, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            border: 1px solid var(--primary);
-        }
-        
-        .user-info-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            padding: 5px 0;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
-        }
-        
-        .user-info-label {
-            color: var(--primary-light);
-            font-weight: bold;
-        }
-        
-        .user-info-value {
-            color: var(--light);
-        }
-        
-        .verification-code {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .verification-input {
-            flex: 1;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
     </style>
 </head>
 <body>
-    <!-- شاشة المصادقة -->
-    <div id="authPage" class="container">
-        <header>
-            <div class="logo">
-                <h1>Red Hat <span class="hat">🎩</span></h1>
+    <!-- صفحة المصادقة -->
+    <div id="authPage" class="auth-page">
+        <div class="auth-container">
+            <h2 class="auth-title">🎩 Red Hat</h2>
+            
+            <!-- تسجيل الدخول -->
+            <div id="loginContainer">
+                <div class="alert alert-error hidden" id="loginError"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" id="loginEmail" class="form-input" required placeholder="ادخل بريدك الإلكتروني">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">كلمة المرور</label>
+                        <input type="password" id="loginPassword" class="form-input" required placeholder="ادخل كلمة المرور">
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">تسجيل الدخول</button>
+                </form>
+                
+                <div class="auth-footer">
+                    <span>ليس لديك حساب؟ </span>
+                    <a class="auth-link" id="showRegister">سجل الآن</a>
+                </div>
             </div>
-        </header>
-        
-        <div id="loginContainer" class="auth-container">
-            <h2 class="auth-title">تسجيل الدخول</h2>
             
-            <div class="alert alert-error" id="loginError"></div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">البريد الإلكتروني</label>
-                    <input type="email" id="loginEmail" class="form-control" required>
-                </div>
+            <!-- إنشاء حساب -->
+            <div id="registerContainer" class="hidden">
+                <div class="alert alert-error hidden" id="registerError"></div>
                 
-                <div class="form-group">
-                    <label for="loginPassword">كلمة المرور</label>
-                    <input type="password" id="loginPassword" class="form-control" required>
-                </div>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">الاسم الكامل</label>
+                        <input type="text" id="regName" class="form-input" required placeholder="ادخل اسمك الكامل">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" id="regEmail" class="form-input" required placeholder="ادخل بريدك الإلكتروني">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">رقم الهاتف</label>
+                        <input type="tel" id="regPhone" class="form-input" required placeholder="ادخل رقم هاتفك">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">كلمة المرور</label>
+                        <input type="password" id="regPassword" class="form-input" required placeholder="اختر كلمة مرور قوية">
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">إنشاء حساب</button>
+                </form>
                 
-                <button type="submit" class="btn" style="width: 100%;">تسجيل الدخول</button>
-            </form>
-            
-            <div class="auth-footer">
-                <span>ليس لديك حساب؟ </span>
-                <span class="auth-link" id="showRegister">سجل الآن</span>
-            </div>
-        </div>
-        
-        <div id="registerContainer" class="auth-container" style="display: none;">
-            <h2 class="auth-title">تسجيل حساب جديد</h2>
-            
-            <div class="alert alert-error" id="registerError"></div>
-            
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="regName">الاسم الكامل (مطلوب)</label>
-                    <input type="text" id="regName" class="form-control" required>
+                <div class="auth-footer">
+                    <span>لديك حساب بالفعل؟ </span>
+                    <a class="auth-link" id="showLogin">تسجيل الدخول</a>
                 </div>
-                
-                <div class="form-group">
-                    <label for="regEmail">البريد الإلكتروني (مطلوب)</label>
-                    <input type="email" id="regEmail" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="regPhone">رقم الهاتف (مطلوب)</label>
-                    <input type="tel" id="regPhone" class="form-control" required pattern="[0-9]{10,15}">
-                </div>
-                
-                <div class="form-group">
-                    <label for="regAge">العمر (مطلوب)</label>
-                    <input type="number" id="regAge" class="form-control" min="16" max="100" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="regCountry">البلد (مطلوب)</label>
-                    <input type="text" id="regCountry" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="regCity">المدينة (مطلوب)</label>
-                    <input type="text" id="regCity" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="regPassword">كلمة المرور (مطلوب)</label>
-                    <input type="password" id="regPassword" class="form-control" required minlength="6">
-                </div>
-                
-                <button type="submit" class="btn" style="width: 100%;">تسجيل حساب</button>
-            </form>
-            
-            <div class="auth-footer">
-                <span>لديك حساب بالفعل؟ </span>
-                <span class="auth-link" id="showLogin">تسجيل الدخول</span>
             </div>
         </div>
     </div>
-    
-    <!-- لوحة التحكم بعد تسجيل الدخول -->
-    <div id="dashboard" class="container" style="display: none;">
-        <header>
-            <div class="logo">
-                <h1>Red Hat <span class="hat">🎩</span></h1>
-            </div>
-            <div class="user-menu">
-                <span id="welcomeMessage"></span>
-                <div class="points-display" id="pointsDisplay">0 نقطة</div>
-                <img id="userAvatar" class="user-avatar" src="https://ui-avatars.com/api/?name=مستخدم&background=8B0000&color=fff">
-                <button id="logoutBtn" class="logout-btn">تسجيل الخروج</button>
+
+    <!-- اللوحة الرئيسية -->
+    <div id="dashboard" class="hidden">
+        <!-- الهيدر -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="hat-icon">🎩</div>
+                    <h1>Red Hat</h1>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="points-badge" id="pointsDisplay">0 نقطة</div>
+                    <img id="userAvatar" class="user-avatar" src="https://ui-avatars.com/api/?name=مستخدم&background=8B0000&color=fff">
+                    <button id="logoutBtn" class="logout-btn">تسجيل الخروج</button>
+                </div>
             </div>
         </header>
-        
-        <div class="alert alert-success" id="successAlert"></div>
-        <div class="alert alert-error" id="errorAlert"></div>
-        <div class="alert alert-info" id="infoAlert"></div>
-        
-        <!-- معلومات المستخدم الشخصية -->
-        <div class="user-info">
-            <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;">المعلومات الشخصية</h3>
-            <div class="user-info-item">
-                <span class="user-info-label">الاسم الكامل:</span>
-                <span class="user-info-value" id="userFullName"></span>
+
+        <div class="container dashboard">
+            <!-- التنبيهات -->
+            <div class="alert alert-success hidden" id="successAlert"></div>
+            <div class="alert alert-error hidden" id="errorAlert"></div>
+            <div class="alert alert-info hidden" id="infoAlert"></div>
+
+            <!-- قسم الترحيب -->
+            <div class="welcome-section">
+                <h2 class="welcome-title" id="welcomeMessage">مرحباً بك في Red Hat!</h2>
+                <p class="welcome-subtitle">نظام المهام والمكافآت المتكامل</p>
             </div>
-            <div class="user-info-item">
-                <span class="user-info-label">البريد الإلكتروني:</span>
-                <span class="user-info-value" id="userEmail"></span>
-            </div>
-            <div class="user-info-item">
-                <span class="user-info-label">رقم الهاتف:</span>
-                <span class="user-info-value" id="userPhone"></span>
-            </div>
-            <div class="user-info-item">
-                <span class="user-info-label">العمر:</span>
-                <span class="user-info-value" id="userAge"></span>
-            </div>
-            <div class="user-info-item">
-                <span class="user-info-label">البلد:</span>
-                <span class="user-info-value" id="userCountry"></span>
-            </div>
-            <div class="user-info-item">
-                <span class="user-info-label">المدينة:</span>
-                <span class="user-info-value" id="userCity"></span>
-            </div>
-            <div class="user-info-item">
-                <span class="user-info-label">تاريخ التسجيل:</span>
-                <span class="user-info-value" id="userJoinDate"></span>
-            </div>
-        </div>
-        
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-value" id="totalPoints">0</div>
-                <div class="stat-label">إجمالي النقاط</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="completedTasks">0</div>
-                <div class="stat-label">المهام المكتملة</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="pendingTasks">0</div>
-                <div class="stat-label">في انتظار المراجعة</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="claimedRewards">0</div>
-                <div class="stat-label">المكافآت المستلمة</div>
-            </div>
-        </div>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="tasks">المهام</div>
-            <div class="tab" data-tab="rewards">المكافآت</div>
-            <div class="tab" data-tab="addTask">إضافة مهمة</div>
-            <div id="adminTab" class="tab" data-tab="admin" style="display: none;">لوحة المراجعة</div>
-        </div>
-        
-        <div class="tab-content active" id="tasksTab">
-            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">المهام المتاحة</h2>
-            <div class="tasks-grid" id="tasksContainer">
-                <!-- سيتم ملؤها بالمهام من localStorage -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="rewardsTab">
-            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">المكافآت المتاحة</h2>
-            <div class="rewards-grid" id="rewardsContainer">
-                <!-- سيتم ملؤها بالمكافآت من localStorage -->
-            </div>
-        </div>
-        
-        <div class="tab-content" id="addTaskTab">
-            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">إضافة مهمة جديدة</h2>
-            <form id="taskForm" style="max-width: 700px; margin: 0 auto;">
-                <div class="form-group">
-                    <label for="taskTitle">عنوان المهمة</label>
-                    <input type="text" id="taskTitle" class="form-control" required>
+
+            <!-- الإحصائيات -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalPoints">0</div>
+                    <div class="stat-label">إجمالي النقاط</div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="taskDescription">وصف المهمة</label>
-                    <textarea id="taskDescription" class="form-control" rows="4" required></textarea>
+                <div class="stat-card">
+                    <div class="stat-value" id="completedTasks">0</div>
+                    <div class="stat-label">المهام المكتملة</div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="taskPoints">النقاط الممنوحة</label>
-                    <input type="number" id="taskPoints" class="form-control" min="1" required>
+                <div class="stat-card">
+                    <div class="stat-value" id="pendingTasks">0</div>
+                    <div class="stat-label">في انتظار المراجعة</div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="taskDeadline">موعد التسليم (اختياري)</label>
-                    <input type="date" id="taskDeadline" class="form-control">
+                <div class="stat-card">
+                    <div class="stat-value" id="claimedRewards">0</div>
+                    <div class="stat-label">المكافآت المستلمة</div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="taskCategory">الفئة</label>
-                    <select id="taskCategory" class="form-control" required>
-                        <option value="work">عمل</option>
-                        <option value="study">دراسة</option>
-                        <option value="personal">شخصي</option>
-                        <option value="health">صحة</option>
-                        <option value="other">أخرى</option>
-                    </select>
+            </div>
+
+            <!-- التبويبات -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <div class="tab active" data-tab="tasks">📝 المهام</div>
+                    <div class="tab" data-tab="rewards">🎁 المكافآت</div>
+                    <div id="adminTab" class="tab hidden" data-tab="admin">👑 لوحة المراجعة</div>
                 </div>
-                
-                <button type="submit" class="btn">إضافة المهمة</button>
-            </form>
-        </div>
-        
-        <div class="tab-content" id="adminTabContent">
-            <div class="admin-panel">
-                <h2 class="admin-title">لوحة مراجعة المهام</h2>
-                <div id="telegramStatus"></div>
-                <div class="pending-tasks" id="pendingTasksContainer">
-                    <!-- سيتم ملؤها بالمهام المنتظرة للمراجعة -->
+
+                <!-- محتوى التبويبات -->
+                <div class="tab-content active" id="tasksTab">
+                    <h3 style="color: var(--gold); margin-bottom: 30px; text-align: center; font-size: 1.8rem;">المهام المتاحة</h3>
+                    <div class="tasks-grid" id="tasksContainer">
+                        <!-- سيتم ملؤها بالمهام -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="rewardsTab">
+                    <h3 style="color: var(--gold); margin-bottom: 30px; text-align: center; font-size: 1.8rem;">المكافآت المتاحة</h3>
+                    <div class="rewards-grid" id="rewardsContainer">
+                        <!-- سيتم ملؤها بالمكافآت -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="adminTabContent">
+                    <div style="text-align: center;">
+                        <h3 style="color: var(--gold); margin-bottom: 30px; font-size: 1.8rem;">👑 لوحة مراجعة المهام</h3>
+                        <div class="pending-tasks" id="pendingTasksContainer">
+                            <!-- سيتم ملؤها بالمهام المنتظرة -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -863,16 +751,12 @@
                 password: '12345',
                 name: 'مدير النظام',
                 phone: '+966500000000',
-                age: 30,
-                country: 'السعودية',
-                city: 'الرياض',
                 points: 100,
                 completedTasks: [],
                 pendingTasks: [],
                 claimedRewards: [],
                 role: 'admin',
-                joinDate: new Date().toISOString(),
-                lastLogin: null
+                joinDate: new Date().toISOString()
             }
         ];
         
@@ -908,8 +792,7 @@
                 description: 'قسيمة بقيمة 50 ريال لمطعمك المفضل',
                 cost: 100,
                 category: 'food',
-                createdBy: 'admin@redhat.com',
-                createdAt: new Date().toISOString()
+                createdBy: 'admin@redhat.com'
             },
             {
                 id: 2,
@@ -917,8 +800,7 @@
                 description: 'اشتراك لمدة شهر في خدمة البث المفضلة لديك',
                 cost: 150,
                 category: 'entertainment',
-                createdBy: 'admin@redhat.com',
-                createdAt: new Date().toISOString()
+                createdBy: 'admin@redhat.com'
             }
         ];
         
@@ -937,13 +819,11 @@
                 showDashboard();
             }
             
-            // أحداث تسجيل الدخول والتسجيل
+            // أحداث التسجيل
             document.getElementById('showRegister').addEventListener('click', showRegisterForm);
             document.getElementById('showLogin').addEventListener('click', showLoginForm);
             document.getElementById('loginForm').addEventListener('submit', loginUser);
             document.getElementById('registerForm').addEventListener('submit', registerUser);
-            
-            // أحداث لوحة التحكم
             document.getElementById('logoutBtn').addEventListener('click', logoutUser);
             
             // أحداث التبويبات
@@ -952,42 +832,20 @@
                     switchTab(this.dataset.tab);
                 });
             });
-            
-            // أحداث النماذج
-            document.getElementById('taskForm').addEventListener('submit', addTask);
-            
-            // اختبار اتصال التلجرام
-            testTelegramConnection();
         });
-        
-        // اختبار اتصال التلجرام
-        async function testTelegramConnection() {
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe`);
-                const data = await response.json();
-                
-                if (data.ok) {
-                    console.log('✅ اتصال التلجرام نشط:', data.result.username);
-                } else {
-                    console.error('❌ خطأ في اتصال التلجرام:', data);
-                }
-            } catch (error) {
-                console.error('❌ فشل اختبار اتصال التلجرام:', error);
-            }
-        }
         
         // عرض نموذج التسجيل
         function showRegisterForm() {
-            document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('registerContainer').style.display = 'block';
-            document.getElementById('registerError').style.display = 'none';
+            document.getElementById('loginContainer').classList.add('hidden');
+            document.getElementById('registerContainer').classList.remove('hidden');
+            document.getElementById('registerError').classList.add('hidden');
         }
         
         // عرض نموذج تسجيل الدخول
         function showLoginForm() {
-            document.getElementById('registerContainer').style.display = 'none';
-            document.getElementById('loginContainer').style.display = 'block';
-            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('registerContainer').classList.add('hidden');
+            document.getElementById('loginContainer').classList.remove('hidden');
+            document.getElementById('loginError').classList.add('hidden');
         }
         
         // تسجيل مستخدم جديد
@@ -997,44 +855,24 @@
             const name = document.getElementById('regName').value;
             const email = document.getElementById('regEmail').value;
             const phone = document.getElementById('regPhone').value;
-            const age = document.getElementById('regAge').value;
-            const country = document.getElementById('regCountry').value;
-            const city = document.getElementById('regCity').value;
             const password = document.getElementById('regPassword').value;
             const errorAlert = document.getElementById('registerError');
             
             // التحقق من صحة البريد الإلكتروني
             if (!isValidEmail(email)) {
-                errorAlert.textContent = 'البريد الإلكتروني غير صحيح';
-                errorAlert.style.display = 'block';
+                showAlert('error', 'البريد الإلكتروني غير صحيح', 'registerError');
                 return;
             }
             
             // التحقق من صحة رقم الهاتف
             if (!isValidPhone(phone)) {
-                errorAlert.textContent = 'رقم الهاتف يجب أن يحتوي على 10 إلى 15 رقمًا';
-                errorAlert.style.display = 'block';
-                return;
-            }
-            
-            // التحقق من العمر
-            if (age < 16 || age > 100) {
-                errorAlert.textContent = 'العمر يجب أن يكون بين 16 و 100 سنة';
-                errorAlert.style.display = 'block';
+                showAlert('error', 'رقم الهاتف يجب أن يحتوي على 10 إلى 15 رقمًا', 'registerError');
                 return;
             }
             
             // التحقق من عدم وجود مستخدم بنفس البريد الإلكتروني
             if (users.some(u => u.email === email)) {
-                errorAlert.textContent = 'البريد الإلكتروني مسجل بالفعل';
-                errorAlert.style.display = 'block';
-                return;
-            }
-            
-            // التحقق من عدم وجود مستخدم بنفس رقم الهاتف
-            if (users.some(u => u.phone === phone)) {
-                errorAlert.textContent = 'رقم الهاتف مسجل بالفعل';
-                errorAlert.style.display = 'block';
+                showAlert('error', 'البريد الإلكتروني مسجل بالفعل', 'registerError');
                 return;
             }
             
@@ -1045,31 +883,23 @@
                 password,
                 name,
                 phone,
-                age: parseInt(age),
-                country,
-                city,
                 points: 0,
                 completedTasks: [],
                 pendingTasks: [],
                 claimedRewards: [],
                 role: 'user',
-                joinDate: new Date().toISOString(),
-                lastLogin: null
+                joinDate: new Date().toISOString()
             };
             
             users.push(newUser);
             localStorage.setItem('redHatUsers', JSON.stringify(users));
             
-            // إرسال إشعار للتلجرام
+            // إرسال إشعار للتلجرام عند التسجيل فقط
             await sendTelegramNotification(
                 '🆕 تسجيل مستخدم جديد!',
-                `📝 تم تسجيل مستخدم جديد في النظام:\n\n` +
                 `👤 الاسم: ${name}\n` +
                 `📧 البريد: ${email}\n` +
                 `📞 الهاتف: ${phone}\n` +
-                `🎂 العمر: ${age}\n` +
-                `🌍 البلد: ${country}\n` +
-                `🏙️ المدينة: ${city}\n` +
                 `⏰ وقت التسجيل: ${new Date().toLocaleString('ar-EG')}`
             );
             
@@ -1079,62 +909,25 @@
         }
         
         // تسجيل الدخول
-        async function loginUser(e) {
+        function loginUser(e) {
             e.preventDefault();
             
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-            const errorAlert = document.getElementById('loginError');
             
             const user = users.find(u => u.email === email && u.password === password);
             
             if (user) {
-                // تحديث وقت آخر دخول
-                user.lastLogin = new Date().toISOString();
-                const userIndex = users.findIndex(u => u.email === email);
-                users[userIndex] = user;
-                localStorage.setItem('redHatUsers', JSON.stringify(users));
-                
                 currentUser = user;
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                // إرسال إشعار دخول للتلجرام
-                await sendTelegramNotification(
-                    '🔐 تسجيل دخول',
-                    `👤 المستخدم: ${user.name}\n` +
-                    `📧 البريد: ${user.email}\n` +
-                    `📞 الهاتف: ${user.phone}\n` +
-                    `⏰ وقت الدخول: ${new Date().toLocaleString('ar-EG')}\n` +
-                    `🌐 العنوان: ${window.location.href}`
-                );
-                
                 showDashboard();
             } else {
-                errorAlert.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
-                errorAlert.style.display = 'block';
-                
-                // إرسال إشعار محاولة دخول فاشلة
-                await sendTelegramNotification(
-                    '⚠️ محاولة دخول فاشلة',
-                    `📧 البريد: ${email}\n` +
-                    `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n` +
-                    `🌐 العنوان: ${window.location.href}`
-                );
+                showAlert('error', 'البريد الإلكتروني أو كلمة المرور غير صحيحة', 'loginError');
             }
         }
         
         // تسجيل الخروج
-        async function logoutUser() {
-            // إرسال إشعار خروج للتلجرام
-            if (currentUser) {
-                await sendTelegramNotification(
-                    '🚪 تسجيل خروج',
-                    `👤 المستخدم: ${currentUser.name}\n` +
-                    `📧 البريد: ${currentUser.email}\n` +
-                    `⏰ وقت الخروج: ${new Date().toLocaleString('ar-EG')}`
-                );
-            }
-            
+        function logoutUser() {
             localStorage.removeItem('currentUser');
             currentUser = null;
             location.reload();
@@ -1152,26 +945,17 @@
             return phoneRegex.test(phone);
         }
         
-        // عرض لوحة التحكم
+        // عرض اللوحة الرئيسية
         function showDashboard() {
-            document.getElementById('authPage').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('authPage').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
             
             document.getElementById('welcomeMessage').textContent = `مرحباً، ${currentUser.name}`;
             document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=8B0000&color=fff`;
             
-            // تحديث المعلومات الشخصية
-            document.getElementById('userFullName').textContent = currentUser.name;
-            document.getElementById('userEmail').textContent = currentUser.email;
-            document.getElementById('userPhone').textContent = currentUser.phone;
-            document.getElementById('userAge').textContent = currentUser.age + ' سنة';
-            document.getElementById('userCountry').textContent = currentUser.country;
-            document.getElementById('userCity').textContent = currentUser.city;
-            document.getElementById('userJoinDate').textContent = new Date(currentUser.joinDate).toLocaleDateString('ar-EG');
-            
             // إظهار تبويب المسؤول إذا كان المستخدم مسؤولاً
             if (currentUser.role === 'admin') {
-                document.getElementById('adminTab').style.display = 'block';
+                document.getElementById('adminTab').classList.remove('hidden');
             }
             
             updateStats();
@@ -1204,47 +988,13 @@
             }
         }
         
-        // إضافة مهمة جديدة
-        function addTask(e) {
-            e.preventDefault();
-            
-            const title = document.getElementById('taskTitle').value;
-            const description = document.getElementById('taskDescription').value;
-            const points = parseInt(document.getElementById('taskPoints').value);
-            const deadline = document.getElementById('taskDeadline').value;
-            const category = document.getElementById('taskCategory').value;
-            
-            if (!title || !description || !points) {
-                showAlert('error', 'الرجاء ملء جميع الحقول المطلوبة');
-                return;
-            }
-            
-            const newTask = {
-                id: Date.now(),
-                title,
-                description,
-                points,
-                deadline: deadline || null,
-                category,
-                createdBy: currentUser.email,
-                createdAt: new Date().toISOString()
-            };
-            
-            tasks.push(newTask);
-            localStorage.setItem('redHatTasks', JSON.stringify(tasks));
-            
-            showAlert('success', 'تم إضافة المهمة بنجاح!');
-            document.getElementById('taskForm').reset();
-            renderTasks();
-        }
-        
         // عرض المهام
         function renderTasks() {
             const container = document.getElementById('tasksContainer');
             container.innerHTML = '';
             
             if (tasks.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">لا توجد مهام مضافة بعد</p>';
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--light); font-size: 1.2rem;">لا توجد مهام مضافة بعد</p>';
                 return;
             }
             
@@ -1256,21 +1006,21 @@
                 taskCard.className = `task-card ${isPending ? 'pending-approval' : ''}`;
                 
                 const deadlineInfo = task.deadline ? 
-                    `<div class="task-meta">موعد التسليم: ${new Date(task.deadline).toLocaleDateString('ar-EG')}</div>` : '';
+                    `<div class="task-meta">⏰ موعد التسليم: ${new Date(task.deadline).toLocaleDateString('ar-EG')}</div>` : '';
                 
                 let actionButton = '';
                 
                 if (isCompleted) {
-                    actionButton = '<button class="btn btn-success" disabled>مكتملة</button>';
+                    actionButton = '<button class="upload-btn" style="background: var(--green);" disabled>✅ مكتملة</button>';
                 } else if (isPending) {
-                    actionButton = '<button class="btn btn-disabled" disabled>في انتظار المراجعة</button>';
+                    actionButton = '<button class="upload-btn" style="background: var(--gold); color: var(--black);" disabled>⏳ في انتظار المراجعة</button>';
                 } else {
                     actionButton = `
                         <div class="upload-section">
-                            <p style="color: var(--primary-light); margin-bottom: 10px;">لإكمال هذه المهمة، يجب تصوير النتيجة وإرسالها</p>
+                            <p style="color: var(--gold); margin-bottom: 15px; text-align: center;">📸 لإكمال هذه المهمة، يجب تصوير النتيجة وإرسالها</p>
                             <input type="file" id="taskImage-${task.id}" class="file-input" accept="image/*">
-                            <label for="taskImage-${task.id}" class="upload-btn">اختر صورة</label>
-                            <button class="btn" onclick="submitTask(${task.id})" style="width: 100%; margin-top: 10px;">إرسال للمراجعة</button>
+                            <label for="taskImage-${task.id}" class="upload-btn">📁 اختر صورة</label>
+                            <button class="upload-btn" onclick="submitTask(${task.id})" style="background: var(--primary); margin-top: 10px;">🚀 إرسال للمراجعة</button>
                         </div>
                     `;
                 }
@@ -1278,20 +1028,16 @@
                 taskCard.innerHTML = `
                     <div class="task-header">
                         <div class="task-title">${task.title}</div>
-                        <div class="task-points">${task.points} نقطة</div>
+                        <div class="task-points">${task.points} ⭐</div>
                     </div>
                     <div class="task-description">${task.description}</div>
                     ${deadlineInfo}
                     <div class="task-meta">
-                        <span>الفئة: ${getCategoryName(task.category)}</span>
-                        <span>بواسطة: ${task.createdBy}</span>
+                        <span>📂 ${getCategoryName(task.category)}</span>
+                        <span>👤 ${task.createdBy}</span>
                     </div>
                     <div class="task-actions">
                         ${actionButton}
-                        ${currentUser.role === 'admin' ? 
-                            `<button class="btn btn-secondary" onclick="deleteTask(${task.id})" style="margin-top: 10px;">حذف</button>` : 
-                            ''
-                        }
                     </div>
                 `;
                 
@@ -1305,7 +1051,7 @@
             container.innerHTML = '';
             
             if (rewards.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">لا توجد مكافآت مضافة بعد</p>';
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--light); font-size: 1.2rem;">لا توجد مكافآت مضافة بعد</p>';
                 return;
             }
             
@@ -1320,19 +1066,12 @@
                     <div class="reward-icon">🎁</div>
                     <div class="reward-title">${reward.title}</div>
                     <div class="reward-description">${reward.description}</div>
-                    <div class="reward-cost">${reward.cost} نقطة</div>
-                    <div class="task-actions">
-                        ${isClaimed ? 
-                            '<button class="btn btn-success" disabled>تم الاستلام</button>' : 
-                            `<button class="btn ${canClaim ? '' : 'btn-disabled'}" ${canClaim ? `onclick="claimReward(${reward.id})"` : 'disabled'}>
-                                ${canClaim ? 'استبدال النقاط' : 'نقاط غير كافية'}
-                            </button>`
-                        }
-                        ${currentUser.role === 'admin' ? 
-                            `<button class="btn btn-secondary" onclick="deleteReward(${reward.id})" style="margin-top: 10px;">حذف</button>` : 
-                            ''
-                        }
-                    </div>
+                    <div class="reward-cost">${reward.cost} ⭐</div>
+                    <button class="upload-btn ${canClaim ? '' : 'btn-disabled'}" 
+                            ${canClaim ? `onclick="claimReward(${reward.id})"` : 'disabled'}
+                            style="${canClaim ? 'background: var(--primary);' : 'background: #555; cursor: not-allowed;'}">
+                        ${isClaimed ? '✅ تم الاستلام' : (canClaim ? '🔄 استبدال النقاط' : '❌ نقاط غير كافية')}
+                    </button>
                 `;
                 
                 container.appendChild(rewardCard);
@@ -1351,8 +1090,7 @@
             const task = tasks.find(t => t.id === taskId);
             if (!task) return;
             
-            // عرض تحميل
-            const submitBtn = fileInput.parentElement.querySelector('.btn');
+            const submitBtn = fileInput.parentElement.querySelector('.upload-btn');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<span class="loading"></span> جاري الإرسال...';
             submitBtn.disabled = true;
@@ -1377,7 +1115,6 @@
                 if (!currentUser.pendingTasks.includes(taskId)) {
                     currentUser.pendingTasks.push(taskId);
                     
-                    // تحديث بيانات المستخدم في التخزين المحلي
                     const userIndex = users.findIndex(u => u.email === currentUser.email);
                     if (userIndex !== -1) {
                         users[userIndex] = currentUser;
@@ -1386,15 +1123,10 @@
                     }
                 }
                 
-                // إرسال الصورة لبوت التلجرام
-                const telegramSent = await sendToTelegram(task, currentUser, fileInput.files[0]);
+                // إرسال الصورة للتلجرام
+                await sendToTelegram(task, currentUser, fileInput.files[0]);
                 
-                if (telegramSent) {
-                    showAlert('success', 'تم إرسال المهمة للمراجعة بنجاح! سيتم إعلام المسؤول.');
-                } else {
-                    showAlert('info', 'تم حفظ المهمة محلياً ولكن فشل الإرسال للتلجرام. سيتم المراجعة يدوياً.');
-                }
-                
+                showAlert('success', 'تم إرسال المهمة للمراجعة بنجاح!');
                 updateStats();
                 renderTasks();
                 
@@ -1417,14 +1149,13 @@
             });
         }
         
-        // إرسال الصورة لبوت التلجرام
+        // إرسال الصورة للتلجرام
         async function sendToTelegram(task, user, imageFile) {
             try {
                 const formData = new FormData();
                 formData.append('chat_id', TELEGRAM_CHAT_ID);
                 formData.append('photo', imageFile);
                 
-                // نص الرسالة
                 const message = `🆕 مهمة جديدة تحتاج للمراجعة\n\n` +
                                `👤 المستخدم: ${user.name}\n` +
                                `📧 البريد: ${user.email}\n` +
@@ -1432,33 +1163,23 @@
                                `📝 المهمة: ${task.title}\n` +
                                `📋 الوصف: ${task.description}\n` +
                                `⭐ النقاط: ${task.points}\n` +
-                               `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n\n` +
-                               `🔗 رابط النظام: ${window.location.href}`;
+                               `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
                 
                 formData.append('caption', message);
                 
-                // إرسال الصورة
-                const telegramResponse = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
                     method: 'POST',
                     body: formData
                 });
                 
-                const result = await telegramResponse.json();
-                
-                if (result.ok) {
-                    console.log('✅ تم إرسال الصورة للتلجرام بنجاح');
-                    return true;
-                } else {
-                    console.error('❌ خطأ في إرسال الصورة للتلجرام:', result);
-                    return false;
-                }
+                return response.ok;
             } catch (error) {
                 console.error('❌ خطأ في الإرسال للتلجرام:', error);
                 return false;
             }
         }
         
-        // إرسال إشعار عام للتلجرام
+        // إرسال إشعار للتلجرام
         async function sendTelegramNotification(title, message) {
             try {
                 const fullMessage = `🔔 ${title}\n\n${message}`;
@@ -1470,8 +1191,7 @@
                     },
                     body: JSON.stringify({
                         chat_id: TELEGRAM_CHAT_ID,
-                        text: fullMessage,
-                        parse_mode: 'HTML'
+                        text: fullMessage
                     })
                 });
                 
@@ -1482,23 +1202,15 @@
             }
         }
         
-        // عرض المهام المنتظرة للمراجعة (للمسؤول فقط)
+        // عرض المهام المنتظرة (للمسؤول فقط)
         function renderPendingReviews() {
             if (currentUser.role !== 'admin') return;
             
             const container = document.getElementById('pendingTasksContainer');
-            const statusContainer = document.getElementById('telegramStatus');
             container.innerHTML = '';
             
-            // عرض حالة الاتصال بالتلجرام
-            statusContainer.innerHTML = `
-                <div class="telegram-status telegram-success">
-                    ✅ النظام مرتبط ببوت التلجرام - جاهز لاستقبال المهام
-                </div>
-            `;
-            
             if (pendingReviews.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">لا توجد مهام في انتظار المراجعة</p>';
+                container.innerHTML = '<p style="color: var(--light); font-size: 1.2rem; text-align: center;">لا توجد مهام في انتظار المراجعة</p>';
                 return;
             }
             
@@ -1512,25 +1224,27 @@
                 
                 const reviewCard = document.createElement('div');
                 reviewCard.className = 'task-card';
+                reviewCard.style.maxWidth = '500px';
+                reviewCard.style.margin = '0 auto 25px auto';
                 
                 reviewCard.innerHTML = `
                     <div class="task-header">
                         <div class="task-title">${task.title}</div>
-                        <div class="task-points">${task.points} نقطة</div>
+                        <div class="task-points">${task.points} ⭐</div>
                     </div>
                     <div class="task-description">
-                        <strong>المستخدم:</strong> ${user.name}<br>
-                        <strong>البريد:</strong> ${user.email}<br>
-                        <strong>الهاتف:</strong> ${user.phone}<br>
-                        <strong>وقت الإرسال:</strong> ${new Date(review.submittedAt).toLocaleString('ar-EG')}
+                        <strong>👤 المستخدم:</strong> ${user.name}<br>
+                        <strong>📧 البريد:</strong> ${user.email}<br>
+                        <strong>📞 الهاتف:</strong> ${user.phone}<br>
+                        <strong>⏰ وقت الإرسال:</strong> ${new Date(review.submittedAt).toLocaleString('ar-EG')}
                     </div>
-                    <div>
-                        <strong>الصورة المرفوعة:</strong>
-                        <img src="${review.image}" class="task-image" alt="صورة المهمة">
+                    <div style="margin: 20px 0;">
+                        <strong>📸 الصورة المرفوعة:</strong>
+                        <img src="${review.image}" class="task-image" alt="صورة المهمة" style="margin-top: 10px;">
                     </div>
-                    <div class="task-actions">
-                        <button class="btn btn-success" onclick="approveTask(${review.id})">الموافقة</button>
-                        <button class="btn btn-secondary" onclick="rejectTask(${review.id})">رفض</button>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="upload-btn" onclick="approveTask(${review.id})" style="background: var(--green); flex: 1;">✅ الموافقة</button>
+                        <button class="upload-btn" onclick="rejectTask(${review.id})" style="background: var(--red); flex: 1;">❌ رفض</button>
                     </div>
                 `;
                 
@@ -1538,7 +1252,7 @@
             });
         }
         
-        // الموافقة على مهمة (للمسؤول فقط)
+        // الموافقة على مهمة
         async function approveTask(reviewId) {
             const reviewIndex = pendingReviews.findIndex(r => r.id === reviewId);
             if (reviewIndex === -1) return;
@@ -1557,34 +1271,20 @@
             // تحديث بيانات المستخدم
             const userIndex = users.findIndex(u => u.email === review.userId);
             if (userIndex !== -1) {
-                // إزالة المهمة من قائمة المهام المنتظرة
                 users[userIndex].pendingTasks = users[userIndex].pendingTasks.filter(id => id !== review.taskId);
                 
-                // إضافة المهمة لقائمة المهام المكتملة
                 if (!users[userIndex].completedTasks.includes(review.taskId)) {
                     users[userIndex].completedTasks.push(review.taskId);
                 }
                 
-                // منح النقاط
                 users[userIndex].points += task.points;
-                
                 localStorage.setItem('redHatUsers', JSON.stringify(users));
                 
-                // تحديث المستخدم الحالي إذا كان هو المعني
                 if (currentUser.email === review.userId) {
                     currentUser = users[userIndex];
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 }
             }
-            
-            // إرسال إشعار للمستخدم عبر التلجرام
-            await sendTelegramNotification(
-                '✅ تمت الموافقة على مهمتك!',
-                `📝 المهمة: ${task.title}\n` +
-                `⭐ النقاط الممنوحة: ${task.points}\n` +
-                `💰 رصيدك الحالي: ${user.points + task.points} نقطة\n\n` +
-                `🎉 تهانينا! استمر في العمل الجيد.`
-            );
             
             showAlert('success', `تمت الموافقة على المهمة وتم منح ${task.points} نقطة للمستخدم ${user.name}`);
             renderPendingReviews();
@@ -1596,13 +1296,12 @@
             }
         }
         
-        // رفض مهمة (للمسؤول فقط)
-        async function rejectTask(reviewId) {
+        // رفض مهمة
+        function rejectTask(reviewId) {
             const reviewIndex = pendingReviews.findIndex(r => r.id === reviewId);
             if (reviewIndex === -1) return;
             
             const review = pendingReviews[reviewIndex];
-            const task = tasks.find(t => t.id === review.taskId);
             const user = users.find(u => u.email === review.userId);
             
             // تحديث حالة المراجعة
@@ -1615,20 +1314,11 @@
                 users[userIndex].pendingTasks = users[userIndex].pendingTasks.filter(id => id !== review.taskId);
                 localStorage.setItem('redHatUsers', JSON.stringify(users));
                 
-                // تحديث المستخدم الحالي إذا كان هو المعني
                 if (currentUser.email === review.userId) {
                     currentUser = users[userIndex];
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 }
             }
-            
-            // إرسال إشعار للمستخدم عبر التلجرام
-            await sendTelegramNotification(
-                '❌ تم رفض مهمتك',
-                `📝 المهمة: ${task.title}\n` +
-                `💡 السبب: لم تستوفِ شروط المهمة\n\n` +
-                `🔄 يمكنك إعادة المحاولة أو اختيار مهمة أخرى.`
-            );
             
             showAlert('info', `تم رفض المهمة للمستخدم ${user.name}`);
             renderPendingReviews();
@@ -1657,7 +1347,6 @@
             currentUser.claimedRewards.push(rewardId);
             currentUser.points -= reward.cost;
             
-            // تحديث بيانات المستخدم في التخزين المحلي
             const userIndex = users.findIndex(u => u.email === currentUser.email);
             if (userIndex !== -1) {
                 users[userIndex] = currentUser;
@@ -1670,49 +1359,32 @@
             renderRewards();
         }
         
-        // حذف مهمة (للمسؤول فقط)
-        function deleteTask(taskId) {
-            if (confirm('هل أنت متأكد من حذف هذه المهمة؟')) {
-                tasks = tasks.filter(task => task.id !== taskId);
-                localStorage.setItem('redHatTasks', JSON.stringify(tasks));
-                renderTasks();
-                showAlert('success', 'تم حذف المهمة بنجاح');
-            }
-        }
-        
-        // حذف مكافأة (للمسؤول فقط)
-        function deleteReward(rewardId) {
-            if (confirm('هل أنت متأكد من حذف هذه المكافأة؟')) {
-                rewards = rewards.filter(reward => reward.id !== rewardId);
-                localStorage.setItem('redHatRewards', JSON.stringify(rewards));
-                renderRewards();
-                showAlert('success', 'تم حذف المكافأة بنجاح');
-            }
-        }
-        
-        // الحصول على اسم الفئة بالعربية
+        // الحصول على اسم الفئة
         function getCategoryName(category) {
             const categories = {
                 'work': 'عمل',
                 'study': 'دراسة',
                 'personal': 'شخصي',
                 'health': 'صحة',
-                'other': 'أخرى',
-                'entertainment': 'ترفيه',
-                'shopping': 'تسوق',
-                'food': 'طعام',
-                'experience': 'تجربة'
+                'other': 'أخرى'
             };
             
             return categories[category] || category;
         }
         
         // عرض رسالة تنبيه
-        function showAlert(type, message) {
-            const alert = document.getElementById(`${type}Alert`);
-            alert.textContent = message;
-            alert.style.display = 'block';
-            setTimeout(() => alert.style.display = 'none', 5000);
+        function showAlert(type, message, specificAlert = null) {
+            let alert;
+            if (specificAlert) {
+                alert = document.getElementById(specificAlert);
+                alert.textContent = message;
+                alert.classList.remove('hidden');
+            } else {
+                alert = document.getElementById(`${type}Alert`);
+                alert.textContent = message;
+                alert.classList.remove('hidden');
+                setTimeout(() => alert.classList.add('hidden'), 5000);
+            }
         }
     </script>
 </body>
